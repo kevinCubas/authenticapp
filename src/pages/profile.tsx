@@ -13,21 +13,26 @@ export default function Profile({ user }: Session) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <section>
-        <div>
-          <h2>{user?.name}</h2>
-          <Image src={user?.image as string} alt="" width={20} height={20} />
+      <main className="flex min-h-screen flex-col items-center justify-center bg-zinc-900">
+        <div className="flex flex-row-reverse gap-2 items-center px-6 py-4">
+          <h2 className="text-2xl text-white font-bold">{user?.name}</h2>
+            <Image src={user?.image as string} 
+              alt=""
+              height={80}
+              width={80}
+              className="rounded-full"
+              />
         </div>
-        <button onClick={() => signOut()}>Sign out!</button>
+        <button className="p-2 rounded font-semibold bg-violet-600  hover:bg-violet-500" onClick={() => signOut()}>Sign out!</button>
 
-      </section>
+      </main>
     </>
   )
 };
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   const session = await getSession(context)
-
+  console.log(session)
   if(session) {
     const user = session.user
 
