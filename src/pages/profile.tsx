@@ -22,6 +22,7 @@ export default function Profile({ user }: Session) {
               height={80}
               width={80}
               className="rounded-full"
+              unoptimized={true}
               />
         </div>
         <button className="p-2 rounded font-semibold bg-violet-600  hover:bg-violet-500" onClick={() => signOut()}>Sign out!</button>
