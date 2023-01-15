@@ -1,8 +1,9 @@
 import { GetServerSidePropsContext } from "next";
-import { Session } from "next-auth";
-import { getSession, signOut } from "next-auth/react";
+import { Session, unstable_getServerSession } from "next-auth";
+import { signOut } from "next-auth/react";
 import Head from "next/head";
 import Image from "next/image";
+import { authOptions } from "./api/auth/[...nextauth]";
 
 
 export default function Profile({ user }: Session) {
@@ -31,14 +32,13 @@ export default function Profile({ user }: Session) {
 };
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
-  const session = await getSession(context)
-  console.log(session)
+  const session = await unstable_getServerSession(context.req, context.res, authOptions)
+
   if(session) {
-    const user = session.user
+    const user = session.user;
 
-    return { props : {user}}
+    return {props: {user}}
   }
-
   return {
     redirect: {
       destination: '/',
